@@ -10,7 +10,7 @@ Permitir que dados enviados ao Server Ubidots, possam ser retransmitidos por mei
 
 Para a integração dos Dados enviados ao Server Ubidots, foi utilizado o Projeto IoT responsável pelo monitoramento remoto de variáveis em um vinhedo localizado na cidade de Piedade-SP.: 
 
-[Link](https://github.com/walter-retzer/Projeto_IoT)
+<https://github.com/walter-retzer/Projeto_IoT>
 
 ## - Mensagens Recebidas
 
@@ -28,7 +28,9 @@ Para a integração dos Dados enviados ao Server Ubidots, foi utilizado o Projet
 
 ### Mensagens Recebidas pelo Gmail: 
 
-![Gráfico](Dashboard1.PNG)
+![Gráfico](Mensagens/Gmail_msg.jfif)
+
+![Gráfico](Mensagens/Gmail_email.jfif)
 
 ## - Flows Implementados no Node-RED
 
@@ -48,27 +50,27 @@ Para a integração dos Dados enviados ao Server Ubidots, foi utilizado o Projet
 
 O Node-RED é uma ferramenta de desenvolvimento baseada em fluxo para programação visual desenvolvida originalmente pela IBM para conectar dispositivos de hardware, APIs e serviços online como parte da Internet das Coisas.
 
-[Link](https://nodered.org/)
+<https://nodered.org/>
 
 O Node-RED permite a criação de funcionalidade ao conectar fluxos de dados entre nós utilizando um navegador. E ganhou enorme popularidade no espaço da IoT, modelando bits de funcionalidade de aplicativos entre dispositivos de IoT, como sensores, câmeras e roteadores sem fio.
 
 Confira o Node-RED Starter na IBM Cloud, isso guiará o seu caminho rumo à criação de grandes funcionalidades!  
 
-[Link](https://developer.ibm.com/tutorials/how-to-create-a-node-red-starter-application/)
+<https://developer.ibm.com/tutorials/how-to-create-a-node-red-starter-application/>
 
 ## - Pallete Utilizada no Node-RED para Envio de Mensagens pelo WhatsApp:
 
-[Link](https://flows.nodered.org/node/node-red-contrib-whatsapp-cmb)
+<https://flows.nodered.org/node/node-red-contrib-whatsapp-cmb>
 
-[Link](https://www.callmebot.com/blog/free-api-whatsapp-messages/)
+<https://www.callmebot.com/blog/free-api-whatsapp-messages/>
 
-[Link](https://core.telegram.org/bots/api)
+<https://core.telegram.org/bots/api>
 
 ## - Pallete Utilizada no Node-RED para Envio de Mensagens pelo Telegram:
 
-[Link](https://flows.nodered.org/node/node-red-contrib-telegrambot)
+<https://flows.nodered.org/node/node-red-contrib-telegrambot>
 
 ## - Pallete Utilizada no Node-RED para Envio de Email pelo Gmail:
 
-[Link](https://flows.nodered.org/node/node-red-node-email)
+<https://flows.nodered.org/node/node-red-node-email>
 
