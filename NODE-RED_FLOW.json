@@ -17,8 +17,8 @@
         "tostatus": false,
         "complete": "true",
         "targetType": "full",
-        "x": 800,
-        "y": 380,
+        "x": 880,
+        "y": 340,
         "wires": []
     },
     {
@@ -27,7 +27,7 @@
         "z": "4947e624.b2ee18",
         "name": "NODES PARA ENVIO DE MENSAGENS DE ALERTA VIA E-MAIL ATRAVÉS DA CONTA DO GMAIL.",
         "info": "NODES PARA ENVIO DE MENSAGENS DE ALERTA VIA E-MAIL ATRAVÉS DA CONTA DO GMAIL",
-        "x": 480,
+        "x": 710,
         "y": 40,
         "wires": []
     },
@@ -40,21 +40,24 @@
         "secure": true,
         "tls": true,
         "name": "nomedoemail@gmail.com",
-        "dname": "nomedoremetente",
-        "x": 760,
-        "y": 180,
+        "dname": "NANO SMART AGRO EMAIL",
+        "x": 950,
+        "y": 80,
         "wires": []
     },
     {
         "id": "fe1893e7.43ef4",
         "type": "function",
         "z": "4947e624.b2ee18",
-        "name": "MSG_GMAIL",
-        "func": "msg.payload = msg.payload;\n\nif(msg.payload >= 2.5){\n	msg.topic = \"Alerta de Possibilidade de Chuva!!\";\n    msg.payload = \"POSSIBILIDADE DE OCORRÊNCIA DE CHUVA PARA OS PRÓXIMOS DIAS!\\n\\n\\nPRESSÃO ATM DIFERENCIAL: \" + String(msg.payload) +\"mBAR\" 	  return msg; \n}\n\n",
+        "name": "Msg_Gmail",
+        "func": "msg.payload = msg.payload;\n\nif(msg.payload >= 2.0){\n    msg.topic = \"NANO SMART AGRO - Alerta de Possibilidade de Chuva!!\";\n    msg.payload = \"PRESSÃO ATMOSFERICA DIFERENCIAL MÁXIMA ATINGIDA! \\n\\nPOSSIBILIDADE DE OCORRÊNCIA DE CHUVA PARA OS PRÓXIMOS DIAS!\\n\\n\\nPRESSÃO ATM DIFERENCIAL: \" + String(msg.payload) +\"mBAR\" + \"\\n\\n\\nAtenciosamente,\\n\\nEQUIPE NANO SMART AGRO\";\n    return msg; \n}\n\n",
         "outputs": 1,
         "noerr": 0,
-        "x": 510,
-        "y": 180,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 80,
         "wires": [
             [
                 "7a54b863.429578",
@@ -81,8 +84,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 130,
-        "y": 180,
+        "x": 430,
+        "y": 80,
         "wires": [
             [
                 "fe1893e7.43ef4",
@@ -113,7 +116,7 @@
         ],
         "seg1": "30",
         "seg2": "75",
-        "x": 740,
+        "x": 800,
         "y": 240,
         "wires": []
     },
@@ -122,15 +125,19 @@
         "type": "mqtt in",
         "z": "4947e624.b2ee18",
         "name": "UBIDOTS PRESSÃO ALERTA",
-        "topic": "/v1.6/devices/nomedocanaldoserverUbidots/nomedavariaveldocanal",
+        "topic": "/v1.6/devices/nomedodevice",
         "qos": "0",
         "datatype": "json",
         "broker": "2d0590bb.a24e3",
-        "x": 180,
-        "y": 100,
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 150,
+        "y": 80,
         "wires": [
             [
-                "8568aa02.c41e88"
+                "8568aa02.c41e88",
+                "1fe1b2b803f28da3"
             ]
         ]
     },
@@ -138,28 +145,29 @@
         "id": "58501b45.8e97f4",
         "type": "telegram sender",
         "z": "4947e624.b2ee18",
-        "name": "nomeDoBotCriadoNoTelegram",
+        "name": "NSAgro_bot",
         "bot": "df75db19.896f28",
-        "haserroroutput": false,
-        "outputs": 1,
-        "x": 470,
-        "y": 380,
+        "haserroroutput": true,
+        "outputs": 2,
+        "x": 650,
+        "y": 340,
         "wires": [
             [
                 "eab944f0.3a15b8"
-            ]
+            ],
+            []
         ]
     },
     {
         "id": "6ee79a8f.e232b4",
         "type": "telegram receiver",
         "z": "4947e624.b2ee18",
-        "name": "nomeDoBotCriadoNoTelegram_MsgRecebidas",
+        "name": "NSAgro_bot_MsgRecebidas",
         "bot": "df75db19.896f28",
         "saveDataDir": "",
         "filterCommands": false,
-        "x": 520,
-        "y": 440,
+        "x": 600,
+        "y": 420,
         "wires": [
             [],
             [
@@ -171,12 +179,15 @@
         "id": "6457da74.de05d4",
         "type": "function",
         "z": "4947e624.b2ee18",
-        "name": "MSG_TELEGRAM",
-        "func": "msg.payload = msg.payload\n\n    \nif(msg.payload >= 2.5){\n    var pressao = msg.payload\n    msg.payload = {} \n    msg.payload.chatId = inserirnumerodoID\n    msg.payload.type = 'message'\n    msg.payload.content = '\\n\\nPossibilidade de Ocorrência de Chuva para os Próximos Dias!\\n-Pressão Atmosférica Diferencial em: ' + pressao +'mBAR'\n    return msg;\n}\n\n\n\n",
+        "name": "Msg_Telegram",
+        "func": "msg.payload = msg.payload\n\n    \nif(msg.payload >= 2.0){\n    var pressao = msg.payload\n    msg.payload = {} \n    msg.payload.chatId = 999999999\n    msg.payload.type = 'message'\n    msg.payload.content = '**Alerta de Possibilidade de Chuva**\\nPressão Atmosférica Diferencial Máxima Atingida!\\n\\nPossibilidade de Ocorrência de Chuva para os Próximos Dias!\\n-Pressão Atmosférica Diferencial em: ' + pressao +'mBAR\\n\\n\\nAtenciosamente,\\n\\nEQUIPE NANO SMART AGRO'\n    return msg;\n}\n\n\n\n",
         "outputs": 1,
         "noerr": 0,
-        "x": 150,
-        "y": 380,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 340,
         "wires": [
             [
                 "58501b45.8e97f4"
@@ -194,8 +205,8 @@
         "tostatus": false,
         "complete": "true",
         "targetType": "full",
-        "x": 700,
-        "y": 120,
+        "x": 880,
+        "y": 140,
         "wires": []
     },
     {
@@ -209,8 +220,8 @@
         "tostatus": false,
         "complete": "true",
         "targetType": "full",
-        "x": 800,
-        "y": 446,
+        "x": 880,
+        "y": 420,
         "wires": []
     },
     {
@@ -219,14 +230,292 @@
         "z": "4947e624.b2ee18",
         "name": "NODES PARA ENVIO DE MENSAGENS ATRAVÉS DE UM BOT DO APLICATIVO TELEGRAM",
         "info": "NODES PARA ENVIO DE MENSAGENS ATRAVÉS DE UM BOT DO APLICATIVO TELEGRAM.\n\nUm bot é uma espécie de robô. Ele torna algumas tarefas mais simples!\n\nUm bot também é usado quando alguém quer realizar uma tarefa simples como responder uma mensagem quando a pessoa não pode fazer isso manualmente.\n\nNeste caso, o bot enviará uma mensagem de forma automática. Por exemplo, se uma pessoa escrever “Oi, bom dia”, o bot responderá (de acordo a uma configuração prévia): “Oi, tudo bem! Seja bem-vindo à nossa loja! O que você está procurando?”.",
-        "x": 470,
-        "y": 320,
+        "x": 690,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "26c0e9188e3951df",
+        "type": "debug",
+        "z": "4947e624.b2ee18",
+        "name": "VIEW 05",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 980,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "14f69eaf7b585768",
+        "type": "telegram sender",
+        "z": "4947e624.b2ee18",
+        "name": "NSAgro_bot",
+        "bot": "df75db19.896f28",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 790,
+        "y": 800,
+        "wires": [
+            [
+                "26c0e9188e3951df"
+            ]
+        ]
+    },
+    {
+        "id": "3eafb8c82251e581",
+        "type": "telegram receiver",
+        "z": "4947e624.b2ee18",
+        "name": "NSAgro_bot_MsgRecebidas",
+        "bot": "df75db19.896f28",
+        "saveDataDir": "",
+        "filterCommands": false,
+        "x": 740,
+        "y": 960,
+        "wires": [
+            [],
+            [
+                "f0ecf48f6c6d04b2"
+            ]
+        ]
+    },
+    {
+        "id": "fc729326ee6e7cd5",
+        "type": "function",
+        "z": "4947e624.b2ee18",
+        "name": "Msg_Telegram",
+        "func": "msg.payload = msg.payload\n\n    \nif(msg.payload >= 0.0){\n    var pluviometro = msg.payload\n    msg.payload = {} \n    msg.payload.chatId = 999999999\n    msg.payload.type = 'message'\n    msg.payload.content = 'Pluviômetro registra ocorrência de Chuva em: ' + pluviometro +'mm\\n\\n\\nAtenciosamente,\\n\\nEQUIPE NANO SMART AGRO'\n    return msg;\n}\n\n\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 800,
+        "wires": [
+            [
+                "14f69eaf7b585768"
+            ]
+        ]
+    },
+    {
+        "id": "f0ecf48f6c6d04b2",
+        "type": "debug",
+        "z": "4947e624.b2ee18",
+        "name": "VIEW 06",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 980,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "dbaf87b8243e30e5",
+        "type": "comment",
+        "z": "4947e624.b2ee18",
+        "name": "NODES PARA ENVIO DE MENSAGENS ATRAVÉS DE UM BOT DO APLICATIVO TELEGRAM",
+        "info": "NODES PARA ENVIO DE MENSAGENS ATRAVÉS DE UM BOT DO APLICATIVO TELEGRAM.\n\nUm bot é uma espécie de robô. Ele torna algumas tarefas mais simples!\n\nUm bot também é usado quando alguém quer realizar uma tarefa simples como responder uma mensagem quando a pessoa não pode fazer isso manualmente.\n\nNeste caso, o bot enviará uma mensagem de forma automática. Por exemplo, se uma pessoa escrever “Oi, bom dia”, o bot responderá (de acordo a uma configuração prévia): “Oi, tudo bem! Seja bem-vindo à nossa loja! O que você está procurando?”.",
+        "x": 710,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "6a538a62e30dd860",
+        "type": "mqtt in",
+        "z": "4947e624.b2ee18",
+        "name": "UBIDOTS PLUVIOMETRO",
+        "topic": "/v1.6/devices/nomedodevice",
+        "qos": "0",
+        "datatype": "json",
+        "broker": "fb5615bd.9c6468",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 130,
+        "y": 798,
+        "wires": [
+            [
+                "254b9ec678daf22c"
+            ]
+        ]
+    },
+    {
+        "id": "254b9ec678daf22c",
+        "type": "change",
+        "z": "4947e624.b2ee18",
+        "name": "CHANGE-3",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.value",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 370,
+        "y": 800,
+        "wires": [
+            [
+                "fc729326ee6e7cd5",
+                "6a76678b5ceb70f1"
+            ]
+        ]
+    },
+    {
+        "id": "f21337595d8c6f83",
+        "type": "node-red-contrib-whatsapp-cmb-send-message",
+        "z": "4947e624.b2ee18",
+        "name": "NSAGRO_whatsapp",
+        "account": "a3aa8351ea8be340",
+        "text": "payload",
+        "inputtypemessage": "msg",
+        "rejectssl": false,
+        "x": 920,
+        "y": 580,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "64a0851bd857ee5b",
+        "type": "debug",
+        "z": "4947e624.b2ee18",
+        "name": "VIEW 04",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 880,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "1fe1b2b803f28da3",
+        "type": "change",
+        "z": "4947e624.b2ee18",
+        "name": "CHANGE-2",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.value",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 390,
+        "y": 580,
+        "wires": [
+            [
+                "31acf5cfa065d4f5"
+            ]
+        ]
+    },
+    {
+        "id": "31acf5cfa065d4f5",
+        "type": "function",
+        "z": "4947e624.b2ee18",
+        "name": "Msg_WhatsApp",
+        "func": "msg.payload = msg.payload;\n\nif(msg.payload >= 2.0){\n    msg.payload = \"PRESSÃO ATMOSFERICA DIFERENCIAL MÁXIMA ATINGIDA! \\n\\nPOSSIBILIDADE DE OCORRÊNCIA DE CHUVA PARA OS PRÓXIMOS DIAS!\\n\\n\\nPRESSÃO ATM DIFERENCIAL: \" + String(msg.payload) +\"mBAR\" + \"\\n\\n\\nAtenciosamente,\\n\\nEQUIPE NANO SMART AGRO\";\n    return msg; \n}\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 580,
+        "wires": [
+            [
+                "f21337595d8c6f83",
+                "64a0851bd857ee5b"
+            ]
+        ]
+    },
+    {
+        "id": "9fc080af0fa64e03",
+        "type": "comment",
+        "z": "4947e624.b2ee18",
+        "name": "NODES PARA ENVIO DE MENSAGENS ATRAVÉS DE UM BOT DO APLICATIVO WHATSAPP",
+        "info": "",
+        "x": 650,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "6a76678b5ceb70f1",
+        "type": "ui_gauge",
+        "z": "4947e624.b2ee18",
+        "name": "PLUVIOMETRO",
+        "group": "e19d8516.86a5a8",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "PLUVIOMETRO",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "6",
+        "colors": [
+            "#e6e600",
+            "#00b500",
+            "#ca3838"
+        ],
+        "seg1": "30",
+        "seg2": "75",
+        "x": 700,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "1bf7affce816a504",
+        "type": "comment",
+        "z": "4947e624.b2ee18",
+        "name": "DASHBOARD PARA MOSTRAR A PRESSAO ATM",
+        "info": "",
+        "x": 890,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "4894069b3d9835bd",
+        "type": "comment",
+        "z": "4947e624.b2ee18",
+        "name": "DASHBOARD PARA MOSTRAR O PLUVIOMETRO",
+        "info": "",
+        "x": 810,
+        "y": 860,
         "wires": []
     },
     {
         "id": "e19d8516.86a5a8",
         "type": "ui_group",
-        "z": "",
         "name": "NSAGRO",
         "tab": "7206f162.c3e9b",
         "order": 1,
@@ -237,30 +526,33 @@
     {
         "id": "2d0590bb.a24e3",
         "type": "mqtt-broker",
-        "z": "",
         "name": "NSAGRO-PRESSAO-ALERTA",
-        "broker": "mqtt://industrial.api.ubidots.com",
+        "broker": "mqtt://things.ubidots.com",
         "port": "1883",
-        "clientid": "inserironumeroClientIDUbidots",
+        "clientid": "xxxxxxxxxxxxxxxxxxxxx",
+        "autoConnect": true,
         "usetls": false,
-        "compatmode": true,
-        "keepalive": "1800",
-        "cleansession": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
         "birthTopic": "",
         "birthQos": "0",
         "birthPayload": "",
+        "birthMsg": {},
         "closeTopic": "",
         "closeQos": "0",
         "closePayload": "",
+        "closeMsg": {},
         "willTopic": "",
         "willQos": "0",
-        "willPayload": ""
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
     },
     {
         "id": "df75db19.896f28",
         "type": "telegram bot",
-        "z": "",
-        "botname": "NanoSmartAgro",
+        "botname": "NSAgro_bot",
         "usernames": "",
         "chatids": "",
         "baseapiurl": "",
@@ -279,12 +571,44 @@
         "certificate": "",
         "useselfsignedcertificate": false,
         "sslterminated": false,
-        "verboselogging": false
+        "verboselogging": false,
+        "credentials": {}
+    },
+    {
+        "id": "fb5615bd.9c6468",
+        "type": "mqtt-broker",
+        "name": "NSAGROV1",
+        "broker": "mqtt://things.ubidots.com",
+        "port": "1883",
+        "clientid": "xxxxxxxxxxxxxxxxxxxxx",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "a3aa8351ea8be340",
+        "type": "node-red-contrib-whatsapp-cmb-account",
+        "name": "NSAGRO_whats",
+        "credentials": {}
     },
     {
         "id": "7206f162.c3e9b",
         "type": "ui_tab",
-        "z": "",
         "name": "DASHBOARD IoT NODE-RED",
         "icon": "dashboard",
         "disabled": false,
