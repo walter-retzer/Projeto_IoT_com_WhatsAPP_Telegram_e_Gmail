@@ -64,11 +64,11 @@ Confira o Node-RED Starter na IBM Cloud, isso guiará o seu caminho rumo à cria
 
 <https://www.callmebot.com/blog/free-api-whatsapp-messages/>
 
-<https://core.telegram.org/bots/api>
-
 ## - Pallete Utilizada no Node-RED para Envio de Mensagens pelo Telegram:
 
 <https://flows.nodered.org/node/node-red-contrib-telegrambot>
+
+<https://core.telegram.org/bots/api>
 
 ## - Pallete Utilizada no Node-RED para Envio de Email pelo Gmail:
 
